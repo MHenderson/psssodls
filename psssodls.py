@@ -7,6 +7,24 @@ def ell(p):
   'l[p[0],p[1]]'."""
   return 'l[' + str(p[0]) + ',' + str(p[1]) + ']'
 
+def begin(n):
+  s = \
+"""
+MINION 3
+
+**VARIABLES**
+DISCRETE l[%d,%d] {0..%d}
+
+**SEARCH**
+PRINT ALL
+
+**CONSTRAINTS**
+""" % (n, n, n - 1)
+  return s
+
+def end():
+  return "**EOF**"
+
 def latin_constraints_str(n):
   """Returns a string containing the latin constraints for a square of size
   n."""
@@ -33,9 +51,10 @@ def orthogonality_constraints_str(n):
 def psssodls_string(n):
   """Returns a string which is the entire Minion 3 format constraint program
   for PSSSODLS(n)."""
-  s = ''
+  s = begin(n)
   s += latin_constraints_str(n)
   s += orthogonality_constraints_str(n)
+  s += end()
   return s
 
 print psssodls_string(int(sys.argv[1]))
