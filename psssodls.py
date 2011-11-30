@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import sys
+
 def f(n):
   return [[(i,j), (j,i)] for i in range(n) for j in range(n)]
 
@@ -22,4 +24,4 @@ def psssodls_string(n):
   s += orthogonality_constraints_str(n)
   return s
 
-print psssodls_string(4)
+print psssodls_string(int(sys.argv[1]))
