@@ -28,10 +28,12 @@ def end():
 def latin_constraints_str(n):
   """Returns a string containing the latin constraints for a square of size
   n."""
+  def alldiff(v):
+    return 'alldiff(' + v + ')'
   s = '# Latin constraints. \n\n'
   for i in range(n):
-    s += 'alldiff(' + ell([i,'_']) + ')' + '\n'
-    s += 'alldiff(' + ell(['_',i]) + ')' + '\n'
+    s += alldiff(ell([i,'_'])) + '\n'
+    s += alldiff(ell(['_',i])) + '\n'
   return s + '\n'
 
 def orthogonality_constraints_str(n):
