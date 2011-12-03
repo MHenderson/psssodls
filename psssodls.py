@@ -7,6 +7,16 @@ def ell(p):
   'l[p[0],p[1]]'."""
   return 'l[' + str(p[0]) + ',' + str(p[1]) + ']'
 
+def alldiff(v):
+  """Returns a string representing an all_different constraint over the
+  variables in the vector v."""
+  return 'alldiff(' + v + ')'
+
+def vecneq(p, q):
+  """Returns a string representing an vectorised inequality constraint between
+  the two vectors p and q."""
+  return 'watchvecneq([' + ell(p[0]) + ',' + ell(p[1]) + '],[' +  ell(q[0]) + ',' + ell(q[1]) + '])'
+
 def begin(n):
   s = \
 """
@@ -28,8 +38,6 @@ def end():
 def latin_constraints_str(n):
   """Returns a string containing the latin constraints for a square of size
   n."""
-  def alldiff(v):
-    return 'alldiff(' + v + ')'
   s = '# Latin constraints. \n\n'
   for i in range(n):
     s += alldiff(ell([i,'_'])) + '\n'
@@ -39,8 +47,6 @@ def latin_constraints_str(n):
 def orthogonality_constraints_str(n):
   """Returns a string containing the orthogonality constraints for a square
   of size n."""
-  def vecneq(p, q):
-    return 'watchvecneq([' + ell(p[0]) + ',' + ell(p[1]) + '],[' +  ell(q[0]) + ',' + ell(q[1]) + '])'
   F = [[(i,j), (j,i)] for i in range(n) for j in range(n)]
   s = '# Orthogonality constraints. \n\n'
   for p in F:
