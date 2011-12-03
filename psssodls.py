@@ -7,6 +7,9 @@ def ell(p):
   'l[p[0],p[1]]'."""
   return 'l[' + str(p[0]) + ',' + str(p[1]) + ']'
 
+def ellell(p):
+  return '[' + ell(p[0]) + ',' + ell(p[1]) + ']'
+
 def alldiff(p):
   """Returns a string representing an all_different constraint over the
   variables in the vector v."""
@@ -15,7 +18,7 @@ def alldiff(p):
 def vecneq(p, q):
   """Returns a string representing an vectorised inequality constraint between
   the two vectors p and q."""
-  return 'watchvecneq([' + ell(p[0]) + ',' + ell(p[1]) + '],[' +  ell(q[0]) + ',' + ell(q[1]) + '])'
+  return 'watchvecneq(' + ellell(p) + ',' + ellell(q) + ')'
 
 def begin(n):
   s = \
