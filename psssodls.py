@@ -39,13 +39,12 @@ def latin_constraints_str(n):
 def orthogonality_constraints_str(n):
   """Returns a string containing the orthogonality constraints for a square
   of size n."""
-  def f(n):
-    return [[(i,j), (j,i)] for i in range(n) for j in range(n)]
   def vecneq(p, q):
     return 'watchvecneq([' + ell(p[0]) + ',' + ell(p[1]) + '],[' +  ell(q[0]) + ',' + ell(q[1]) + '])'
+  F = [[(i,j), (j,i)] for i in range(n) for j in range(n)]
   s = '# Orthogonality constraints. \n\n'
-  for p in f(n):
-    for q in f(n):
+  for p in F:
+    for q in F:
       if p > q:
         s += vecneq(p, q) + '\n'
   return s + '\n'
