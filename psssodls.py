@@ -7,10 +7,10 @@ def ell(p):
   'l[p[0],p[1]]'."""
   return 'l[' + str(p[0]) + ',' + str(p[1]) + ']'
 
-def alldiff(v):
+def alldiff(p):
   """Returns a string representing an all_different constraint over the
   variables in the vector v."""
-  return 'alldiff(' + v + ')'
+  return 'alldiff(' + ell(p) + ')'
 
 def vecneq(p, q):
   """Returns a string representing an vectorised inequality constraint between
@@ -40,8 +40,8 @@ def latin_constraints_str(n):
   n."""
   s = '# Latin constraints. \n\n'
   for i in range(n):
-    s += alldiff(ell([i,'_'])) + '\n'
-    s += alldiff(ell(['_',i])) + '\n'
+    s += alldiff([i,'_']) + '\n'
+    s += alldiff(['_',i]) + '\n'
   return s + '\n'
 
 def orthogonality_constraints_str(n):
