@@ -42,9 +42,7 @@ def latin_constraints_str(n):
   """Returns a string containing the latin constraints for a square of size
   n."""
   s = '# Latin constraints. \n\n'
-  for i in range(n):
-    s += alldiff([i,'_']) + '\n'
-    s += alldiff(['_',i]) + '\n'
+  s += "".join([alldiff([i,'_']) + '\n' + alldiff(['_',i]) + '\n' for i in range(n)])
   return s + '\n'
 
 def orthogonality_constraints_str(n):
@@ -52,10 +50,7 @@ def orthogonality_constraints_str(n):
   of size n."""
   F = [[(i,j), (j,i)] for i in range(n) for j in range(n)]
   s = '# Orthogonality constraints. \n\n'
-  for p in F:
-    for q in F:
-      if p > q:
-        s += vecneq(p, q) + '\n'
+  s += "".join([vecneq(p, q) + '\n' for p in F for q in F if p > q])
   return s + '\n'
 
 def psssodls_string(n):
