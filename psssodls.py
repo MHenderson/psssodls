@@ -63,6 +63,14 @@ def pandiagonality_constraints_str(n):
     s += 'sumleq(' + pandiagonal_sum_b(n, w) + ', ' + pandiagonal_sum_s + ')' + '\n\n'
   return s
 
+def strongly_symmetric_constraints_str(n):
+  s = '# Strongly symmetric constraints. \n\n'
+  for i in range(n):
+    for j in range(n):
+      s += 'sumgeq(' + ellell([[i,j],[n - 1 - i, n - 1 - j]]) + ', ' + str(n - 1) + ')\n'
+      s += 'sumleq(' + ellell([[i,j],[n - 1 - i, n - 1 - j]]) + ', ' + str(n - 1) + ')\n'
+    s += '\n'
+  return s
 
 def orthogonality_constraints_str(n):
   """Returns a string containing the orthogonality constraints for a square
@@ -78,6 +86,7 @@ def psssodls_string(n):
   s = begin(n)
   s += latin_constraints_str(n)
   s += pandiagonality_constraints_str(n)
+  s += strongly_symmetric_constraints_str(n)
   s += orthogonality_constraints_str(n)
   s += end()
   return s
