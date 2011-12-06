@@ -38,6 +38,13 @@ PRINT ALL
 def end():
   return "**EOF**"
 
+def latin_constraints_str(n):
+  """Returns a string containing the latin constraints for a square of size
+  n."""
+  s = '# Latin constraints. \n\n'
+  s += "".join([alldiff([i,'_']) + '\n' + alldiff(['_',i]) + '\n' for i in range(n)])
+  return s + '\n'
+
 def pandiagonal_sum_a(n, w):
   return "".join([ell([i % n, (i + w) % n]) for i in range(n)])
 
@@ -56,12 +63,6 @@ def pandiagonality_constraints_str(n):
     s += 'sumleq(' + pandiagonal_sum_b(n, w) + ', ' + pandiagonal_sum_s + ')' + '\n\n'
   return s
 
-def latin_constraints_str(n):
-  """Returns a string containing the latin constraints for a square of size
-  n."""
-  s = '# Latin constraints. \n\n'
-  s += "".join([alldiff([i,'_']) + '\n' + alldiff(['_',i]) + '\n' for i in range(n)])
-  return s + '\n'
 
 def orthogonality_constraints_str(n):
   """Returns a string containing the orthogonality constraints for a square
