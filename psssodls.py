@@ -2,6 +2,8 @@
 
 import sys
 
+from math import sqrt
+
 def ell(p):
   """This function takes a pair p = [p[0], p[1]] and returns the string
   'l[p[0],p[1]]'."""
@@ -45,6 +47,19 @@ def latin_constraints_str(n):
   s += "".join([alldiff([i,'_']) + '\n' + alldiff(['_',i]) + '\n' for i in range(n)])
   return s + '\n'
 
+def sdk_positions_box(i,j,p):
+ row_offset = p * (i-1)
+ column_offset = p * (j-1)
+ return [(row_offset + r, column_offset + c) for r in range(p) for c in range(p)]
+
+def box_constraints_str(n):
+  p = int(sqrt(n))
+  F = [sdk_positions_box(i,j,p) for i in range(1,p+1) for j in range(1,p+1)]
+  s = '# Box constraints. \n\n'
+  for p in F:
+    s += 'alldiff([' + ",".join(ell(q) for q in p) + '])' + '\n'
+  return s + '\n'
+
 def pandiagonal_sum_a(n, w):
   return ",".join([ell([i % n, (i + w) % n]) for i in range(n)])
 
@@ -85,6 +100,7 @@ def psssodls_string(n):
   for PSSSODLS(n)."""
   s = begin(n)
   s += latin_constraints_str(n)
+  s += box_constraints_str(n)
   s += pandiagonality_constraints_str(n)
   s += strongly_symmetric_constraints_str(n)
   s += orthogonality_constraints_str(n)
