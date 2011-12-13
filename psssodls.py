@@ -3,6 +3,11 @@
 import sys
 
 from math import sqrt
+from optparse import OptionParser
+
+parser = OptionParser()
+parser.add_option("-b", action = "store_true", dest = "boxes")
+(options, args) = parser.parse_args()
 
 def ell(p):
   """This function takes a pair p = [p[0], p[1]] and returns the string
@@ -54,7 +59,7 @@ def sdk_positions_box(i,j,p):
 
 def box_constraints_str(n):
   p = int(sqrt(n))
-  F = [sdk_positions_box(i,j,p) for i in range(1,p+1) for j in range(1,p+1)]
+  F = [sdk_positions_box(i,j,p) for i in range(1, p + 1) for j in range(1, p + 1)]
   s = '# Box constraints. \n\n'
   for p in F:
     s += 'alldiff([' + ",".join(ell(q) for q in p) + '])' + '\n'
@@ -100,12 +105,13 @@ def psssodls_string(n):
   for PSSSODLS(n)."""
   s = begin(n)
   s += latin_constraints_str(n)
-  s += box_constraints_str(n)
+  if options.boxes:
+    s += box_constraints_str(n)
   s += pandiagonality_constraints_str(n)
   s += strongly_symmetric_constraints_str(n)
   s += orthogonality_constraints_str(n)
   s += end()
   return s
 
-print psssodls_string(int(sys.argv[1]))
+print psssodls_string(int(args[0]))
 
