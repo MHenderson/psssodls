@@ -20,5 +20,10 @@ such that
       (sum i: RANGE . field[i, (i + w) % n + 1]) = THESUM,
 
   forAll w : RANGE .
-      (sum i: RANGE . field[i, (i - w) % n + 1]) = THESUM
+      (sum i: RANGE . field[i, (i - w) % n + 1]) = THESUM,
+
+  $ strongly-symmetric constraints (WRONG?)
+  forAll i : RANGE .
+      forAll j : RANGE .
+          field[i, j] + field[n - i + 1, n - j + 1] = n - 1
 
