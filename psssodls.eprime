@@ -2,9 +2,11 @@ language ESSENCE' 1.0
 given     n : int
 letting   RANGE be domain int(1..n)
 letting   SYMBOLS be domain int(0..n-1)
+letting   ERR be domain int(0..(n+1)*(n-1))
 letting   THESUM be (n*(n-1)/2)
 
 find      field: matrix indexed by [RANGE, RANGE] of SYMBOLS
+find      ortho: matrix indexed by [RANGE, RANGE] of ERR
 
 such that
   $ all rows have to be different
@@ -25,5 +27,12 @@ such that
   $ strongly-symmetric constraints (WRONG?)
   forAll i : RANGE .
       forAll j : RANGE .
-          field[i, j] + field[n - i + 1, n - j + 1] = n - 1
+         field[i, j] + field[n - i + 1, n - j + 1] = n - 1,
+
+  $ orthogonality constraints
+  forAll i : RANGE .
+      forAll j : RANGE .
+          field[i,j]*n + field[j,i] = ortho[i,j],
+
+  allDiff(flatten(ortho))
 
