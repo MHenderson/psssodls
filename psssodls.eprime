@@ -1,9 +1,10 @@
 language ESSENCE' 1.0
 given     n : int
 letting   RANGE be domain int(1..n)
-letting   SYMBOLS be domain int(1..n)
+letting   SYMBOLS be domain int(0..n-1)
+letting   THESUM be (n*(n-1)/2)
 
-find      field: matrix indexed by [RANGE, RANGE] of RANGE
+find      field: matrix indexed by [RANGE, RANGE] of SYMBOLS
 
 such that
   $ all rows have to be different
@@ -12,5 +13,12 @@ such that
 
   $ all columns have to be different
   forAll col : RANGE .
-       allDiff(field[..,col])
+       allDiff(field[..,col]),
+
+  $ pandiagonality constraints
+  forAll w : RANGE .
+      (sum i: RANGE . field[i, (i + w) % n + 1]) = THESUM,
+
+  forAll w : RANGE .
+      (sum i: RANGE . field[i, (i - w) % n + 1]) = THESUM
 
