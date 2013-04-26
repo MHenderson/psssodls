@@ -1,0 +1,16 @@
+language ESSENCE' 1.0
+given     n : int
+letting   RANGE be domain int(1..n)
+letting   SYMBOLS be domain int(1..n)
+
+find      field: matrix indexed by [RANGE, RANGE] of RANGE
+
+such that
+  $ all rows have to be different
+  forAll row : RANGE .
+       allDiff(field[row,..]),
+
+  $ all columns have to be different
+  forAll col : RANGE .
+       allDiff(field[..,col])
+
