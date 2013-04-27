@@ -17,8 +17,7 @@ such that
   $ pandiagonality constraints
   forAll w : RANGE .
       (sum i: RANGE . 
-          field[i, (i + w) % n]) = THESUM,
-  forAll w : RANGE .
+          field[i, (i + w) % n]) = THESUM /\
       (sum i: RANGE . 
           field[i, (w - i) % n]) = THESUM,
 
