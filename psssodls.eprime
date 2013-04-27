@@ -1,31 +1,32 @@
 language ESSENCE' 1.0
 given     n : int
-letting   RANGE be domain int(0..n-1)
-letting   THESUM be (n*(n-1)/2)
+letting   Indices be domain int(0..n-1)
+letting   Symbols be domain int(0..n-1)
+letting   symbol_sum be (n*(n-1)/2)
 
-find      field: matrix indexed by [RANGE, RANGE] of RANGE
+find      P: matrix indexed by [Indices, Indices] of Symbols
 
 such that
   $ all rows have to be different
-  forAll row : RANGE .
-       allDiff(field[row,..]),
+  forAll row : Indices .
+    allDiff(P[row,..]),
 
   $ all columns have to be different
-  forAll col : RANGE .
-       allDiff(field[..,col]),
+  forAll col : Indices .
+    allDiff(P[..,col]),
 
   $ pandiagonality constraints
-  forAll w : RANGE .
-      (sum i: RANGE . 
-          field[i, (i + w) % n]) = THESUM /\
-      (sum i: RANGE . 
-          field[i, (w - i) % n]) = THESUM,
+  forAll w : Indices .
+    (sum i: Indices . 
+      P[i, (i + w) % n]) = symbol_sum /\
+    (sum i: Indices . 
+      P[i, (w - i) % n]) = symbol_sum ,
 
   $ strongly-symmetric constraints
-  forAll i,j : RANGE .
-      field[i, j] + field[n - 1 - i, n - 1 - j] = n - 1,
+  forAll i,j : Indices .
+    P[i, j] + P[n - 1 - i, n - 1 - j] = n - 1,
 
   $ orthogonality constraints
-  forAll i,j,k,l : RANGE .
-      i<k \/ j<l ->  field[i,j]!=field[k,l] \/ field[j,i]!=field[l,k]
+  forAll i,j,k,l : Indices .
+    i<k \/ j<l ->  P[i,j] != P[k,l] \/ P[j,i] != P[l,k]
 
