@@ -1,6 +1,6 @@
 language ESSENCE' 1.0
 given     n : int
-letting   RANGE be domain int(1..n)
+letting   RANGE be domain int(0..n-1)
 letting   SYMBOLS be domain int(0..n-1)
 letting   ERR be domain int(0..(n+1)*(n-1))
 letting   THESUM be (n*(n-1)/2)
@@ -19,15 +19,15 @@ such that
 
   $ pandiagonality constraints
   forAll w : RANGE .
-      (sum i: RANGE . field[i, (i + w) % n + 1]) = THESUM,
+      (sum i: RANGE . field[i, (i + w) % n]) = THESUM,
 
   forAll w : RANGE .
-      (sum i: RANGE . field[i, (i - w) % n + 1]) = THESUM,
+      (sum i: RANGE . field[i, (w - i) % n]) = THESUM,
 
-  $ strongly-symmetric constraints (WRONG?)
+  $ strongly-symmetric constraints
   forAll i : RANGE .
       forAll j : RANGE .
-         field[i, j] + field[n - i + 1, n - j + 1] = n - 1,
+         field[i, j] + field[n - 1 - i, n - 1 - j] = n - 1,
 
   $ orthogonality constraints
   forAll i : RANGE .
