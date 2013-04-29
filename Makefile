@@ -8,7 +8,7 @@ psssodls_param_solution=$(home)/workspace/psssodls/psssodls.param.solution
 sr=java -ea -jar $(savile_row_jar)
 sr_solve=$(sr) -m $(minion_bin)
 
-.PHONY: clean
+.PHONY: clean minion solve
 
 minion: $(psssodls_param_minion)
 solve: $(psssodls_param_solution)
