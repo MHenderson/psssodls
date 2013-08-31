@@ -35,8 +35,7 @@ def vecneq(p, q):
   return 'watchvecneq({}, {})'.format(ellell(p), ellell(q))
 
 def begin(n):
-  s = \
-"""
+  return """\
 MINION 3
 
 **VARIABLES**
@@ -46,8 +45,8 @@ DISCRETE l[{},{}] {{0..{}}}
 PRINT ALL
 
 **CONSTRAINTS**
-"""
-  return s.format(n, n, n - 1) + '\n'
+
+""".format(n, n, n - 1)
 
 def end():
   return "**EOF**"
@@ -121,6 +120,6 @@ def psssodls_string(n, boxes):
   return s
 
 if __name__ == '__main__':
-    arguments = docopt(__doc__, version='PSSSODLS 1.0')
-    print(psssodls_string(int(arguments['<size>']), arguments['-b']))
+  arguments = docopt(__doc__, version='PSSSODLS 1.0')
+  print(psssodls_string(int(arguments['<size>']), arguments['-b']))
 
