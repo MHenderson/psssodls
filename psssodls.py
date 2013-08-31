@@ -1,13 +1,20 @@
 #!/usr/bin/env python
 
+"""PSSSODLS generator.
+
+Usage:
+  psssodls.py [options] [--] <size>
+
+Options:
+  -h --help     Show this screen.
+  --version     Show version.
+  -b            Include box constraints.
+"""
+
 import sys
 
 from math import sqrt
-from optparse import OptionParser
-
-parser = OptionParser()
-parser.add_option("-b", action = "store_true", dest = "boxes")
-(options, args) = parser.parse_args()
+from docopt import docopt
 
 def ell(p):
   """This function takes a pair p = [p[0], p[1]] and returns the string
@@ -100,12 +107,12 @@ def orthogonality_constraints_str(n):
   s += "".join([vecneq(p, q) + '\n' for p in F for q in F if p > q])
   return s + '\n'
 
-def psssodls_string(n):
+def psssodls_string(n, boxes):
   """Returns a string which is the entire Minion 3 format constraint program
   for PSSSODLS(n)."""
   s = begin(n)
   s += latin_constraints_str(n)
-  if options.boxes:
+  if boxes:
     s += box_constraints_str(n)
   s += pandiagonality_constraints_str(n)
   s += strongly_symmetric_constraints_str(n)
@@ -113,5 +120,7 @@ def psssodls_string(n):
   s += end()
   return s
 
-print psssodls_string(int(args[0]))
+if __name__ == '__main__':
+    arguments = docopt(__doc__, version='PSSSODLS 1.0')
+    print(psssodls_string(int(arguments['<size>']), arguments['-b']))
 
