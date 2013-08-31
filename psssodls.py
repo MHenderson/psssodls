@@ -12,20 +12,20 @@ parser.add_option("-b", action = "store_true", dest = "boxes")
 def ell(p):
   """This function takes a pair p = [p[0], p[1]] and returns the string
   'l[p[0],p[1]]'."""
-  return 'l[' + str(p[0]) + ',' + str(p[1]) + ']'
+  return 'l[{},{}]'.format(p[0], p[1])
 
 def ellell(p):
-  return '[' + ell(p[0]) + ',' + ell(p[1]) + ']'
+  return '[{},{}]'.format(ell(p[0]),ell(p[1]))
 
 def alldiff(p):
   """Returns a string representing an all_different constraint over the
   variables in the vector v."""
-  return 'alldiff(' + ell(p) + ')'
+  return 'alldiff({})'.format(ell(p))
 
 def vecneq(p, q):
   """Returns a string representing an vectorised inequality constraint between
   the two vectors p and q."""
-  return 'watchvecneq(' + ellell(p) + ',' + ellell(q) + ')'
+  return 'watchvecneq({}, {})'.format(ellell(p), ellell(q))
 
 def begin(n):
   s = \
@@ -33,14 +33,14 @@ def begin(n):
 MINION 3
 
 **VARIABLES**
-DISCRETE l[%d,%d] {0..%d}
+DISCRETE l[{},{}] {{0..{}}}
 
 **SEARCH**
 PRINT ALL
 
 **CONSTRAINTS**
-""" % (n, n, n - 1)
-  return s + '\n'
+"""
+  return s.format(n, n, n - 1) + '\n'
 
 def end():
   return "**EOF**"
@@ -53,9 +53,9 @@ def latin_constraints_str(n):
   return s + '\n'
 
 def sdk_positions_box(i,j,p):
- row_offset = p * (i-1)
- column_offset = p * (j-1)
- return [(row_offset + r, column_offset + c) for r in range(p) for c in range(p)]
+  row_offset = p * (i-1)
+  column_offset = p * (j-1)
+  return [(row_offset + r, column_offset + c) for r in range(p) for c in range(p)]
 
 def box_constraints_str(n):
   p = int(sqrt(n))
@@ -77,18 +77,18 @@ def pandiagonality_constraints_str(n):
   s = '# Pandiagonality constraints. \n\n'
   pandiagonal_sum_s = str(n*(n - 1)/2)
   for w in range(n):
-    s += 'sumgeq([' + pandiagonal_sum_a(n, w) + '], ' + pandiagonal_sum_s + ')' + '\n'
-    s += 'sumleq([' + pandiagonal_sum_a(n, w) + '], ' + pandiagonal_sum_s + ')' + '\n'
-    s += 'sumgeq([' + pandiagonal_sum_b(n, w) + '], ' + pandiagonal_sum_s + ')' + '\n'
-    s += 'sumleq([' + pandiagonal_sum_b(n, w) + '], ' + pandiagonal_sum_s + ')' + '\n\n'
+    s += 'sumgeq([{}],{})\n'.format(pandiagonal_sum_a(n, w), pandiagonal_sum_s)
+    s += 'sumleq([{}],{})\n'.format(pandiagonal_sum_a(n, w), pandiagonal_sum_s)
+    s += 'sumgeq([{}],{})\n'.format(pandiagonal_sum_b(n, w), pandiagonal_sum_s)
+    s += 'sumleq([{}],{})\n\n'.format(pandiagonal_sum_b(n, w), pandiagonal_sum_s)
   return s
 
 def strongly_symmetric_constraints_str(n):
   s = '# Strongly symmetric constraints. \n\n'
   for i in range(n):
     for j in range(n):
-      s += 'sumgeq(' + ellell([[i,j],[n - 1 - i, n - 1 - j]]) + ', ' + str(n - 1) + ')\n'
-      s += 'sumleq(' + ellell([[i,j],[n - 1 - i, n - 1 - j]]) + ', ' + str(n - 1) + ')\n'
+      s += 'sumgeq({}, {})\n'.format(ellell([[i,j],[n - 1 - i, n - 1 - j]]), n - 1)
+      s += 'sumleq({}, {})\n'.format(ellell([[i,j],[n - 1 - i, n - 1 - j]]), n - 1)
     s += '\n'
   return s
 
