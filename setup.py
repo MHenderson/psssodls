@@ -8,4 +8,5 @@ setup(name='psssodls',
       author_email='matthew.james.henderson@gmail.com',
       license='MIT',
       packages=['psssodls'],
+      scripts=['bin/psssodls'],
       zip_safe=False)

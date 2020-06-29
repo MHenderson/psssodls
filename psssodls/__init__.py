@@ -1,20 +1,6 @@
-#!/usr/bin/env python
-
-"""PSSSODLS generator.
-
-Usage:
-  psssodls.py [options] [--] <size>
-
-Options:
-  -h --help     Show this screen.
-  --version     Show version.
-  -b            Include box constraints.
-"""
-
 import sys
 
 from math import sqrt
-from docopt import docopt
 
 def ell(p):
   """This function takes a pair p = [p[0], p[1]] and returns the string
@@ -118,8 +104,4 @@ def psssodls_string(n, boxes):
   s += orthogonality_constraints_str(n)
   s += end()
   return s
-
-if __name__ == '__main__':
-  arguments = docopt(__doc__, version='PSSSODLS 1.0')
-  print(psssodls_string(int(arguments['<size>']), arguments['-b']))
 
