@@ -1,0 +1,6 @@
+build
+dist
+psssodls.egg-info
+psssodls/__pycache__/
+tests/__pycache__/
+
