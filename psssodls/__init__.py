@@ -1,3 +1,9 @@
+"""
+Python package `psssodls` generates Minion 3 input files
+for pandiagonal strongly symmetric self-orthogonal diagonal
+latin squares (PSSSODLS).
+"""
+
 import sys
 
 from math import sqrt
