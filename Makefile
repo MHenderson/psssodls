@@ -1,3 +1,6 @@
+install:
+	pip install .
+
 doc:
 	pdoc --html psssodls --html-dir public
 	mv public/psssodls/index.html public/index.html
