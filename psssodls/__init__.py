@@ -69,23 +69,23 @@ def pandiagonal_sum_a(n, w):
 def pandiagonal_sum_b(n, w):
   return ",".join([ell([i % n, (w - i) % n]) for i in range(n)])
 
-def psumg(n, w):
+def psumg(n, w, f):
   pandiagonal_sum_s = str(int(n*(n - 1)/2))
-  return 'sumgeq([{}],{})\n'.format(pandiagonal_sum_a(n, w), pandiagonal_sum_s)
+  return 'sumgeq([{}],{})\n'.format(f(n, w), pandiagonal_sum_s)
 
-def psuml(n, w):
+def psuml(n, w, f):
   pandiagonal_sum_s = str(int(n*(n - 1)/2))
-  return 'sumleq([{}],{})\n'.format(pandiagonal_sum_a(n, w), pandiagonal_sum_s)
+  return 'sumleq([{}],{})\n'.format(f(n, w), pandiagonal_sum_s)
 
 def pandiagonality_constraints_str(n):
   """Returns a string containing the pandiagonality constraints for a square
   of size n."""
   s = '# Pandiagonality constraints. \n\n'
   for w in range(n):
-    s += 'sumgeq([{}],{})\n'.format(pandiagonal_sum_a(n, w), pandiagonal_sum_s)
-    s += 'sumleq([{}],{})\n'.format(pandiagonal_sum_a(n, w), pandiagonal_sum_s)
-    s += 'sumgeq([{}],{})\n'.format(pandiagonal_sum_b(n, w), pandiagonal_sum_s)
-    s += 'sumleq([{}],{})\n'.format(pandiagonal_sum_b(n, w), pandiagonal_sum_s)
+    s += psumg(n, w, pandiagonal_sum_a)
+    s += psuml(n, w, pandiagonal_sum_a)
+    s += psumg(n, w, pandiagonal_sum_b)
+    s += psuml(n, w, pandiagonal_sum_b)
     s += '\n'
   return s
 
