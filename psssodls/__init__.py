@@ -69,16 +69,24 @@ def pandiagonal_sum_a(n, w):
 def pandiagonal_sum_b(n, w):
   return ",".join([ell([i % n, (w - i) % n]) for i in range(n)])
 
+def psumg(n, w):
+  pandiagonal_sum_s = str(n*(n - 1)/2)
+  return 'sumgeq([{}],{})\n'.format(pandiagonal_sum_a(n, w), pandiagonal_sum_s)
+
+def psuml(n, w):
+  pandiagonal_sum_s = str(n*(n - 1)/2)
+  return 'sumleq([{}],{})\n'.format(pandiagonal_sum_a(n, w), pandiagonal_sum_s)
+
 def pandiagonality_constraints_str(n):
   """Returns a string containing the pandiagonality constraints for a square
   of size n."""
   s = '# Pandiagonality constraints. \n\n'
-  pandiagonal_sum_s = str(n*(n - 1)/2)
   for w in range(n):
     s += 'sumgeq([{}],{})\n'.format(pandiagonal_sum_a(n, w), pandiagonal_sum_s)
     s += 'sumleq([{}],{})\n'.format(pandiagonal_sum_a(n, w), pandiagonal_sum_s)
     s += 'sumgeq([{}],{})\n'.format(pandiagonal_sum_b(n, w), pandiagonal_sum_s)
-    s += 'sumleq([{}],{})\n\n'.format(pandiagonal_sum_b(n, w), pandiagonal_sum_s)
+    s += 'sumleq([{}],{})\n'.format(pandiagonal_sum_b(n, w), pandiagonal_sum_s)
+    s += '\n'
   return s
 
 def strongly_symmetric_constraints_str(n):
