@@ -70,11 +70,11 @@ def pandiagonal_sum_b(n, w):
   return ",".join([ell([i % n, (w - i) % n]) for i in range(n)])
 
 def psumg(n, w):
-  pandiagonal_sum_s = str(n*(n - 1)/2)
+  pandiagonal_sum_s = str(int(n*(n - 1)/2))
   return 'sumgeq([{}],{})\n'.format(pandiagonal_sum_a(n, w), pandiagonal_sum_s)
 
 def psuml(n, w):
-  pandiagonal_sum_s = str(n*(n - 1)/2)
+  pandiagonal_sum_s = str(int(n*(n - 1)/2))
   return 'sumleq([{}],{})\n'.format(pandiagonal_sum_a(n, w), pandiagonal_sum_s)
 
 def pandiagonality_constraints_str(n):
