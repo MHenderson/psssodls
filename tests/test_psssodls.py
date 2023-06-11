@@ -1,8 +1,6 @@
-"""
-Unit testing of the automatic batch processing application
-"""
 import unittest
-import psssodls
+
+from psssodls import psssodls
 
 class ConstraintTests(unittest.TestCase):
     def test_sumgeq(self):
@@ -24,3 +22,4 @@ def suite():
     _suite.addTest(PandiagonalTests('test_pandiagonal'))
     _suite.addTest(ConstraintTests('test_sumgeq'))
     return _suite
+
