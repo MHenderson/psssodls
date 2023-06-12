@@ -8,6 +8,10 @@ import sys
 
 from math import sqrt
 
+from psssodls.constraints import alldiff, sdk_positions_box
+from psssodls.constraints import psumg, pandiagonal_sum_a, psuml, pandiagonal_sum_b
+from psssodls.constraints import ell, ellell
+
 def begin(n):
   return """\
 MINION 3
@@ -24,6 +28,21 @@ PRINT ALL
 
 def end():
   return "**EOF**"
+
+def latin_constraints_str(n):
+  """Returns a string containing the latin constraints for a square of size
+  n."""
+  s = '# Latin constraints. \n\n'
+  s += "".join([alldiff([i,'_']) + '\n' + alldiff(['_',i]) + '\n' for i in range(n)])
+  return s + '\n'
+
+def box_constraints_str(n):
+  p = int(sqrt(n))
+  F = [sdk_positions_box(i,j,p) for i in range(1, p + 1) for j in range(1, p + 1)]
+  s = '# Box constraints. \n\n'
+  for p in F:
+    s += 'alldiff([' + ",".join(ell(q) for q in p) + '])' + '\n'
+  return s + '\n'
 
 def pandiagonality_constraints_str(n):
   """Returns a string containing the pandiagonality constraints for a square
