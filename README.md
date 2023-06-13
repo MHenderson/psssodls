@@ -1,5 +1,7 @@
 # psssodls
 
+[![codecov](https://codecov.io/gh/MHenderson/psssodls/branch/main/graph/badge.svg?token=l5qYR5X7DB)](https://codecov.io/gh/MHenderson/psssodls)
+
 Generate PSSSODLS in Minion format.
 
 ## Installation
