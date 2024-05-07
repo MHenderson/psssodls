@@ -2,6 +2,8 @@ import sys
 
 from math import sqrt
 
+from psssodls.constraints import alldiff, psumg, pandiagonal_sum_a, psuml, pandiagonal_sum_b, ellell, vecneq
+
 def begin(n):
   return """\
 MINION 3
