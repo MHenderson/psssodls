@@ -2,7 +2,7 @@ import sys
 
 from math import sqrt
 
-from psssodls.constraints import alldiff, psumg, pandiagonal_sum_a, psuml, pandiagonal_sum_b, ellell, vecneq
+from psssodls.constraints import alldiff, psumg, pandiagonal_sum_a, psuml, pandiagonal_sum_b, ellell, vecneq, sdk_positions_box, ell
 
 def begin(n):
   return """\
