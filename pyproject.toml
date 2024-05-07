@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "psssodls"
-version = "0.1.0"
+version = "0.2.0"
 description = "Generate PSSSODLS in Minion 3 format."
 authors = ["Matthew Henderson <matthew.james.henderson@gmail.com>"]
 license = "MIT"
