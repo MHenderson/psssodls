@@ -1,16 +1,10 @@
-"""
-Python package `psssodls` generates Minion 3 input files
-for pandiagonal strongly symmetric self-orthogonal diagonal
-latin squares (PSSSODLS).
-"""
-
 import sys
 
 from math import sqrt
 
 from psssodls.constraints import alldiff, sdk_positions_box
 from psssodls.constraints import psumg, pandiagonal_sum_a, psuml, pandiagonal_sum_b
-from psssodls.constraints import ell, ellell
+from psssodls.constraints import ell, ellell, vecneq
 
 def begin(n):
   return """\
